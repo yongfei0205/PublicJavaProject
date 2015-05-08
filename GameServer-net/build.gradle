@@ -1,0 +1,36 @@
+apply plugin:'java'
+defaultTasks 'build'
+repositories {
+    mavenCentral()
+}
+dependencies {
+    compile(
+    'io.netty:netty-all:4.0.27.Final',
+    'log4j:log4j:1.2.17'    
+     )
+}
+def cp=""
+
+
+task copyJars(type: Copy) {
+  from configurations.runtime
+  into 'lib' // Ä¿±êÎ»ÖÃ
+}
+
+task printRuntime {
+	def _files= files(configurations.runtime)
+	def count=_files.getFiles().size()
+	println "count:"+count
+	for(def i=0;i<count;i++){
+	 	cp= ""+_files[i]+";"+cp
+	}
+	println "printRuntime"
+}
+jar {
+    manifest {
+        attributes 'Main-Class': "org.xiaoguo.game.net.Main"
+        attributes 'Class-Path': cp
+    }
+    println "jar"
+}
+//printRuntime.dependsOn build
