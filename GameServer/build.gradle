@@ -1,28 +1,16 @@
 apply plugin:'java'
-
-version="0.1.1"
-
-repositories {
-        mavenCentral()
+ext{
+	version="0.1.1"
+	archivesBaseName = 'GameServer'
 }
-
-compileJava{
-	options.encoding = 'UTF-8'	
-}
-dependencies {
-    compile 'org.springframework:spring-context:4.1.6.RELEASE'
-    compile 'org.springframework:spring-jdbc:4.1.6.RELEASE'
+dependencies{  
 	compile project(':GameServer-net')
 }
 jar {
     manifest {
         attributes 'Main-Class': 'org.xiaoguo.game.GameMain'
     }
-	baseName = 'gradle-test'
 }
 
 
-task copyJars(type: Copy) {
-  from configurations.runtime
-  into 'lib' // Ä¿±êÎ»ÖÃ
-}
+

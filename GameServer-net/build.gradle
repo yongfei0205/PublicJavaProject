@@ -1,5 +1,9 @@
 apply plugin:'java'
 defaultTasks 'build'
+ext{
+	version="0.1.1"
+	archivesBaseName = 'GameServer-net'
+}
 repositories {
     mavenCentral()
 }
@@ -14,7 +18,7 @@ def cp=""
 
 task copyJars(type: Copy) {
   from configurations.runtime
-  into 'lib' // Ä¿±êÎ»ÖÃ
+  into 'lib' //
 }
 
 task printRuntime {
@@ -31,6 +35,6 @@ jar {
         attributes 'Main-Class': "org.xiaoguo.game.net.Main"
         attributes 'Class-Path': cp
     }
-    println "jar"
+    
 }
 //printRuntime.dependsOn build
