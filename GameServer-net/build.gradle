@@ -13,7 +13,6 @@ dependencies {
     'log4j:log4j:1.2.17'    
      )
 }
-def cp=""
 
 
 task copyJars(type: Copy) {
@@ -21,19 +20,9 @@ task copyJars(type: Copy) {
   into 'lib' //
 }
 
-task printRuntime {
-	def _files= files(configurations.runtime)
-	def count=_files.getFiles().size()
-	println "count:"+count
-	for(def i=0;i<count;i++){
-	 	cp= ""+_files[i]+";"+cp
-	}
-	println "printRuntime"
-}
 jar {
     manifest {
         attributes 'Main-Class': "org.xiaoguo.game.net.Main"
-        attributes 'Class-Path': cp
     }
     
 }
