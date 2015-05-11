@@ -13,10 +13,20 @@ public class Main {
 		Socket socket = null;
 		try {
 			socket = new Socket("127.0.0.1", 8888);
-			 //¶ÁÈ¡·þÎñÆ÷¶ËÊý¾Ý    
+			 //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½    
             DataInputStream input = new DataInputStream(socket.getInputStream());    
-            //Ïò·þÎñÆ÷¶Ë·¢ËÍÊý¾Ý    
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½    
             DataOutputStream out = new DataOutputStream(socket.getOutputStream());  
+            out.writeShort(NetConstants.MAGIC_HEADER);
+            out.writeInt(8);
+            out.writeInt(123);
+            out.writeInt(99);
+            out.flush();
+            try {
+				Thread.sleep(999L);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
             out.writeShort(NetConstants.MAGIC_HEADER);
             out.writeInt(8);
             out.writeInt(123);

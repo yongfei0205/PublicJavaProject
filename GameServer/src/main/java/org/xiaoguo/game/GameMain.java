@@ -21,5 +21,6 @@ public class GameMain {
 		ctx = new ClassPathXmlApplicationContext("root.xml");
 		logger.info("Spring is Load succ!");
 	}
+	
 
 }
