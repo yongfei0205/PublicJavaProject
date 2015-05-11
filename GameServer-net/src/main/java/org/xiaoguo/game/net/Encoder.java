@@ -6,21 +6,20 @@ import io.netty.handler.codec.MessageToByteEncoder;
 
 import org.apache.log4j.Logger;
 
-public class Encoder extends MessageToByteEncoder<Response> {
+public class Encoder extends MessageToByteEncoder<NetBuffer> {
 	private static Logger logger = Logger.getLogger(Encoder.class);
 
 	@Override
-	protected void encode(ChannelHandlerContext ctx, Response res, ByteBuf out)
+	protected void encode(ChannelHandlerContext ctx, NetBuffer buf, ByteBuf out)
 			throws Exception {
-		out=ctx.alloc().directBuffer();
-		byte[] data = res.getBytes();
-	    int dataLength = data.length;
-	    logger.debug("=====length:[\t"+dataLength+"\t]=======");
-	    //Ð´ÏûÏ¢
-	    out.writeShort(NetConstants.MAGIC_HEADER);//Matgic Header
-	    out.writeInt(dataLength+4);// ÐèÒª¼ÓÉÏÖ¸Áî±àºÅ
-	    out.writeInt(res.getCmd());
-	    out.writeBytes(data);//·¢ËÍprotobuf¶ÔÏó
+		out = ctx.alloc().directBuffer();
+		byte[] data = buf.getMessages();
+		int dataLength = data.length;
+		logger.debug("=====length:[\t" + dataLength + "\t]=======");
+		// Ð´ï¿½ï¿½Ï¢
+		out.writeShort(NetConstants.MAGIC_HEADER);// Matgic Header
+		out.writeInt(dataLength);// ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½
+		out.writeBytes(data);// ï¿½ï¿½ï¿½ï¿½protobufï¿½ï¿½ï¿½ï¿½
 		ctx.write(out);
 		ctx.flush();
 	}

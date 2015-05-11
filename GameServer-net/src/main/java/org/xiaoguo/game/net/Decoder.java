@@ -12,30 +12,30 @@ public class Decoder extends ByteToMessageDecoder {
 	@Override
 	protected void decode(ChannelHandlerContext ctx, ByteBuf in,
 			List<Object> out) throws Exception {
-		// Ê×ÏÈ³¤¶ÈÒª´óÓÚ10
+		// ï¿½ï¿½ï¿½È³ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½10
 		if (in.readableBytes() < 10) {
 			return;
 		}
 
 		in.markReaderIndex();
-		// ¼ì²âmagic header.
+		// ï¿½ï¿½ï¿½magic header.
 		short magicHeader = in.readShort();
 		if (magicHeader != NetConstants.MAGIC_HEADER) {
 			in.resetReaderIndex();
-			throw new CorruptedFrameException("ÎÞÐ§µÄÏûÏ¢Í·: " + magicHeader);
+			throw new CorruptedFrameException("ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½Ï¢Í·: " + magicHeader);
 		}
 
-		// ²»¶ÏµÄ¼ì²â£¬ÖªµÀÊý¾Ý¶¼ÒÑ¾­¶ÁÈ¡ÁË
+		// ï¿½ï¿½ï¿½ÏµÄ¼ï¿½â£¬Öªï¿½ï¿½ï¿½ï¿½ï¿½Ý¶ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½È¡ï¿½ï¿½
 		int dataLength = in.readInt();
 		if (in.readableBytes() < dataLength) {
 			in.resetReaderIndex();
 			return;
 		}
 
-		// ½«½ÓÊÜµ½µÄÊý¾Ý×ª»»³ÉX2Request¶ÔÏó.
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½X2Requestï¿½ï¿½ï¿½ï¿½.
 		byte[] decoded = new byte[dataLength];
 		in.readBytes(decoded);
-		out.add(new Request(decoded));// Ö¸Áî+ÓÃ»§Ãû+Êý×é
+		out.add(new NetBuffer(decoded));// Ö¸ï¿½ï¿½+ï¿½Ã»ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½
 	}
 
 }
