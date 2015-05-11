@@ -7,7 +7,7 @@ dependencies{
 	compile project(':GameServer-net')
 	compile (
 	'org.springframework.data:spring-data-mongodb:1.7.0.RELEASE',
-	 'io.netty:netty-all:4.0.27.Final'
+	 'io.netty:netty-all:4.0.27.Final',
 	'org.mongodb:mongo-java-driver:3.0.1'
 	 )
 }
