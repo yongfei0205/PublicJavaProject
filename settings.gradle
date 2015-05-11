@@ -17,4 +17,4 @@ include 'services:webservice'
 */
 
 rootProject.name = 'JavaProject'
-include 'GameServer','GameServer-net'  
+include 'GameServer-core','GameServer-net'  

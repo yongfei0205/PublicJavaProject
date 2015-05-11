@@ -11,34 +11,41 @@ import org.apache.log4j.Logger;
 public class NetServer {
 	private static Logger logger = Logger.getLogger(NetServer.class);
 
+	private static ActionManager actionManager;
+
 	public static void main(String[] args) {
 		startNetService(8888);
 	}
+
 	/**
 	 * 启动服务
 	 */
-	public static void startNetService(final int port)
-	{
+	public static void startNetService(final int port) {
 		EventLoopGroup bossGroup = new NioEventLoopGroup();
 
 		EventLoopGroup workerGroup = new NioEventLoopGroup();
-		try
-		{
+		try {
 			ServerBootstrap b = new ServerBootstrap();
-			b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
+			b.group(bossGroup, workerGroup)
+					.channel(NioServerSocketChannel.class)
 					.childHandler(new NetChannelInitializer());
 			ChannelFuture f = b.bind(port).sync();
 			logger.info("NetServer Start Succ!");
 			f.channel().closeFuture().sync();
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
-		} finally
-		{
+		} finally {
 			bossGroup.shutdownGracefully();
 			workerGroup.shutdownGracefully();
 		}
+	}
 
+	public static ActionManager getActionManager() {
+		return actionManager;
+	}
+
+	public static void setActionManager(ActionManager actionManager) {
+		NetServer.actionManager = actionManager;
 	}
 
 }

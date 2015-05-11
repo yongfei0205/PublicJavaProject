@@ -2,25 +2,25 @@ package org.xiaoguo.game.net;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.util.AttributeKey;
+
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 
 import org.apache.log4j.Logger;
 
-public class ChannelHandler extends SimpleChannelInboundHandler<Request> {
+public class ChannelHandler extends SimpleChannelInboundHandler<NetBuffer> {
 	private static Logger logger = Logger.getLogger(ChannelHandler.class);
 
 	@Override
-	protected void channelRead0(ChannelHandlerContext ctx, Request req)
+	protected void channelRead0(ChannelHandlerContext ctx, NetBuffer buf)
 			throws Exception {
-		logger.info("cmd:" + req.getCmd());
-		AttributeKey<Integer> a = new AttributeKey<Integer>("ssid");
-		if (ctx.attr(a).get() != null) {
-			logger.debug("ssid:" + ctx.attr(a).get());
-		} else {
-			ctx.attr(a).set(999);
-			logger.debug("ssid: is null!");
-		}
+		ActionManager actionManager = NetServer.getActionManager();
 
+		DataInputStream dis = new DataInputStream(new ByteArrayInputStream(
+				buf.getMessages()));
+		int cmd = dis.readInt();
+		byte[] message = new byte[dis.available()];
+		dis.read(message);
+		 actionManager.dispath(cmd,message);
 	}
-
 }

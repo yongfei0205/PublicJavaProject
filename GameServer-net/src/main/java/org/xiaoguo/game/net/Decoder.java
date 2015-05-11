@@ -22,7 +22,7 @@ public class Decoder extends ByteToMessageDecoder {
 		short magicHeader = in.readShort();
 		if (magicHeader != NetConstants.MAGIC_HEADER) {
 			in.resetReaderIndex();
-			throw new CorruptedFrameException("xxxx" + magicHeader);
+			throw new CorruptedFrameException("��Ч����Ϣͷ: " + magicHeader);
 		}
 
 		// ���ϵļ�⣬֪�����ݶ��Ѿ���ȡ��
@@ -35,7 +35,7 @@ public class Decoder extends ByteToMessageDecoder {
 		// �����ܵ�������ת����X2Request����.
 		byte[] decoded = new byte[dataLength];
 		in.readBytes(decoded);
-		out.add(new Request(decoded));// ָ��+�û���+����
+		out.add(new NetBuffer(decoded));// ָ��+�û���+����
 	}
 
 }
