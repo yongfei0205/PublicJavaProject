@@ -7,7 +7,7 @@ import org.xiaoguo.game.domain.role.Role;
 import org.xiaoguo.game.net.OutputHandlerManager;
 import org.xiaoguo.game.net.action.AccountAction;
 @Component
-public class CreateRole extends AccountAction<Byte[]> {
+public class CreateRole extends AccountAction<byte[]> {
 
 	@Autowired
 	private OutputHandlerManager handlerManager;
@@ -16,11 +16,12 @@ public class CreateRole extends AccountAction<Byte[]> {
 	}
 
 	@Override
-	public void execute(Account account, Byte[] message) {
+	public void execute(Account account, byte[] message) {
 		Role role=new Role();
 		role.setAccount(account);
 		role.setId(account.getId());
 		handlerManager.register(account.getChannel(), role);
+		account.sendMsg(new byte[]{1});
 	}
 
 }

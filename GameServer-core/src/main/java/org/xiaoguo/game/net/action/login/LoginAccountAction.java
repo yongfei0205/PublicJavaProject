@@ -9,7 +9,7 @@ import org.xiaoguo.game.net.OutputHandlerManager;
 import org.xiaoguo.game.net.action.ChannelAction;
 
 @Component
-public class LoginAccountAction extends ChannelAction<Byte[]> {
+public class LoginAccountAction extends ChannelAction<byte[]> {
 
 	@Autowired
 	private OutputHandlerManager handlerManager;
@@ -18,7 +18,7 @@ public class LoginAccountAction extends ChannelAction<Byte[]> {
 	}
 
 	@Override
-	public void execute(Channel channel, Byte[] message) {
+	public void execute(Channel channel, byte[] message) {
 		Account account=new Account();
 		account.setChannel(channel);
 		account.sendMsg(new byte[]{1});

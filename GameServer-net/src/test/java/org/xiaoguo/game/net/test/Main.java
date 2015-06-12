@@ -19,7 +19,7 @@ public class Main {
             DataOutputStream out = new DataOutputStream(socket.getOutputStream());  
             out.writeShort(NetConstants.MAGIC_HEADER);
             out.writeInt(8);
-            out.writeInt(123);
+            out.writeInt(1);
             out.writeInt(99);
             out.flush();
             try {
@@ -29,7 +29,7 @@ public class Main {
 			}
             out.writeShort(NetConstants.MAGIC_HEADER);
             out.writeInt(8);
-            out.writeInt(123);
+            out.writeInt(2);
             out.writeInt(99);
             out.flush();
             out.close();

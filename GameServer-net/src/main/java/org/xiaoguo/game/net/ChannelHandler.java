@@ -21,6 +21,6 @@ public class ChannelHandler extends SimpleChannelInboundHandler<NetBuffer> {
 		int cmd = dis.readInt();
 		byte[] message = new byte[dis.available()];
 		dis.read(message);
-		 actionManager.dispath(cmd,message);
+		 actionManager.dispath(ctx.channel(),cmd,message);
 	}
 }
