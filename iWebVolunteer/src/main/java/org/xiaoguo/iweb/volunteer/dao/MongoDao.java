@@ -12,6 +12,8 @@ public interface MongoDao {
 	
 	public User getUser(String name);
 	
+	public User getUser(String name,String password);
+	
 	public void update(User user);
 	
 	public boolean delUser(String name);

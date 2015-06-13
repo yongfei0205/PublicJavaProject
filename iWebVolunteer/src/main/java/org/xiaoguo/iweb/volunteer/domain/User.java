@@ -1,10 +1,17 @@
 package org.xiaoguo.iweb.volunteer.domain;
 
+import java.io.Serializable;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "user")
-public class User {
+public class User implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8110076139329370396L;
+
 	@Id
 	private String id;
 

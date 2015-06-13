@@ -62,13 +62,21 @@ public class MongoDaoImpl implements MongoDao {
 
 	@Override
 	public List<User> getUserByGroup(Group group) {
-		// TODO Auto-generated method stub
-		return null;
+		return getUserByGroup(group.getIndex());
 	}
 
 	@Override
 	public List<User> getUsersByPermission(int permission) {
-		// TODO Auto-generated method stub
-		return null;
+		Query query = new Query();
+		query.addCriteria(new Criteria("permission").gte(permission));
+		return mongo.find(query, User.class);
+	}
+
+	@Override
+	public User getUser(String name, String password) {
+		Query query = new Query();
+		query.addCriteria(new Criteria("name").is(name));
+		query.addCriteria(new Criteria("pwd").is(password));
+		return mongo.findOne(query, User.class);
 	}
 }

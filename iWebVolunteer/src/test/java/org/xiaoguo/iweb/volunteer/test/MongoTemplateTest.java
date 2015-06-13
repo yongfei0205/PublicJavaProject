@@ -2,6 +2,7 @@ package org.xiaoguo.iweb.volunteer.test;
 
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,17 +60,18 @@ public class MongoTemplateTest {
 				new Sort(new Order[]{ new Order(Direction.DESC,"age"),new Order("lastName")}))
 				.limit(10);
 		List<Customer> findAll = mongo.find(q, Customer.class);
-		findAll.forEach((c) -> System.out.println(c));
+		
+		//findAll.forEach((c) -> System.out.println(c));
 	}
 
 	@Test
 	public void select1() {
 		Query q = new Query();
 		Criteria age = new Criteria("age");
-		age = new Criteria("age").lt(90).gt(70);
-		age = age.orOperator(new Criteria("age").lt(50).gt(30));
+		age = new Criteria("age").lt(90).gt(10);
+		age = age.orOperator(new Criteria("lastName").is("__6"));
 		q.addCriteria(age);
-		q = q.limit(1);
+		//q = q.limit(2);
 		List<Customer> findAll = mongo.find(q, Customer.class);
 		findAll.forEach((c) -> System.out.println(c));
 	}
