@@ -24,6 +24,6 @@ public class Serivce {
 		user.setPwd("xiaoguo822");
 		user.setQQ("83575126");
 		user.setTel("15810669623");
-		dao.addUser(user);
+		//dao.addUser(user);
 	}
 }

@@ -10,6 +10,8 @@ public class Customer {
 
     private String firstName;
     private String lastName;
+    
+    private int age;
 
     public Customer() {}
 
@@ -21,8 +23,8 @@ public class Customer {
     @Override
     public String toString() {
         return String.format(
-                "Customer[id=%s, firstName=%s, lastName=%s]",
-                id, firstName, lastName);
+                "Customer[id=%s, firstName=%s, lastName=%s, age=%d]",
+                id, firstName, lastName,age);
     }
 
     public String getId() {
@@ -48,4 +50,12 @@ public class Customer {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
 }
