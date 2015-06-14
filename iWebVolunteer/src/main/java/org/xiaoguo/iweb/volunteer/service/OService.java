@@ -12,9 +12,12 @@ import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.xiaoguo.iweb.volunteer.contants.GlobalContants;
 import org.xiaoguo.iweb.volunteer.dao.MongoDao;
 import org.xiaoguo.iweb.volunteer.domain.Permission;
 import org.xiaoguo.iweb.volunteer.domain.User;
+
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 @Service
 public class OService {
@@ -34,11 +37,11 @@ public class OService {
 		User user = new User();
 		user.setCo("掌趣科技");
 		user.setName("郭健");
-		user.setMan(true);
+		user.setSex(1);
 		user.setEmail("i@xiaoguo822.com");
 		user.setJobPost("码农");
 		user.setPwd("xiaoguo822");
-		user.setQQ("83575126");
+		user.setQq("83575126");
 		user.setTel("15810669623");
 		dao.addUser(user);
 	}
@@ -73,20 +76,37 @@ public class OService {
 	}
 
 	public void addUser(JSONObject json) {
-		User user = (User) JSONObject.toBean(json, User.class);
-		User usr2 = copyField(json, new User());
-		System.out.println("");
+		User user = copyField(json, new User());
+		dao.addUser(user);
+	}
+
+	public int update(JSONObject json) {
+		String id = json.getString("id");
+		User user = dao.getUserById(id);
+		if (user == null) {
+			return GlobalContants.state_code_not_user;
+		}
+		user = copyField(json, user);
+		dao.update(user);
+		return GlobalContants.STATE_CODE_OK;
 	}
 
 	private User copyField(JSONObject jo, User u) {
-		Iterator keys = jo.keys();
+		Iterator<?> keys = jo.keys();
 		while (keys.hasNext()) {
 			String key = keys.next().toString();
 			try {
-				Object value=jo.get(key);
+				Object value = jo.get(key);
+				Class<? extends Object> class1 = value.getClass();
+				if (class1 == Integer.class) {
+					class1 = int.class;
+				} else if (class1 == Boolean.class) {
+					class1 = boolean.class;
+				}
 				Method method = u.getClass().getMethod(
 						"set" + key.substring(0, 1).toUpperCase()
-								+ key.substring(1),value.getClass());
+								+ key.substring(1), class1);
+
 				method.invoke(u, value);
 			} catch (NoSuchMethodException e) {
 				e.printStackTrace();
@@ -94,7 +114,6 @@ public class OService {
 				e.printStackTrace();
 			} catch (IllegalAccessException | IllegalArgumentException
 					| InvocationTargetException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

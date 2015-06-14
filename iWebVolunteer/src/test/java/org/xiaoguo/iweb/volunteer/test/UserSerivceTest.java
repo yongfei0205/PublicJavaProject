@@ -2,6 +2,8 @@ package org.xiaoguo.iweb.volunteer.test;
 
 import java.util.List;
 
+import net.sf.json.JSONObject;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +21,10 @@ public class UserSerivceTest {
 	@Autowired
 	private MongoTemplate mongo;
 	
-	@Test
+	//@Test
 	public void test(){
-		mongo.findAll(User.class).forEach(c->{
-			System.out.println(c);
+		mongo.findAll(User.class).forEach(u->{
+			System.out.println(JSONObject.fromObject(u));
 		});;
 	}
 	
@@ -34,6 +36,14 @@ public class UserSerivceTest {
 		
 		List<User> find = mongo.find(q, User.class);
 		System.out.println("");
+	}
+	
+	@Test
+	public void queryId(){
+		Query q=new  Query();
+		q.addCriteria(new Criteria("id").is("55782742e3662451e8306bc7"));
+		 mongo.find(q, User.class).forEach(u->System.out.println(JSONObject.fromObject(u)));
+		
 	}
 
 }

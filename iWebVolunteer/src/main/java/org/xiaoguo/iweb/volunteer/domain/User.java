@@ -19,7 +19,7 @@ public class User implements Serializable {
 
 	private String pwd;
 
-	private Boolean isMan;
+	private int sex;
 	private String email;
 
 	private String tel;
@@ -73,11 +73,11 @@ public class User implements Serializable {
 		this.tel = tel;
 	}
 
-	public String getQQ() {
+	public String getQq() {
 		return qq;
 	}
 
-	public void setQQ(String qq) {
+	public void setQq(String qq) {
 		this.qq = qq;
 	}
 
@@ -121,11 +121,13 @@ public class User implements Serializable {
 		this.permission = permission;
 	}
 
-	public boolean isMan() {
-		return isMan;
+	public int getSex() {
+		return sex;
 	}
 
-	public void setMan(boolean isMan) {
-		this.isMan = isMan;
+	public void setSex(int sex) {
+		this.sex = sex;
 	}
+
+
 }
