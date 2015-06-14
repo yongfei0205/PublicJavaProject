@@ -1,5 +1,8 @@
 package org.xiaoguo.iweb.volunteer.service;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -65,10 +68,35 @@ public class OService {
 			}
 			return false;
 		}).collect(Collectors.toList());
+		addUser(JSONObject.fromObject(collect.get(0)));
 		return collect;
 	}
-	
-	public void addUser(JSONObject json){
-		
+
+	public void addUser(JSONObject json) {
+		User user = (User) JSONObject.toBean(json, User.class);
+		User usr2 = copyField(json, new User());
+		System.out.println("");
+	}
+
+	private User copyField(JSONObject jo, User u) {
+		Iterator keys = jo.keys();
+		while (keys.hasNext()) {
+			String key = keys.next().toString();
+			try {
+				Method method = u.getClass().getMethod(
+						"set" + key.substring(0, 1).toUpperCase()
+								+ key.substring(1));
+				method.invoke(u, jo.get(key));
+			} catch (NoSuchMethodException e) {
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException | IllegalArgumentException
+					| InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return u;
 	}
 }
