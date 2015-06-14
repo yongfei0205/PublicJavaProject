@@ -19,7 +19,7 @@ public class User implements Serializable {
 
 	private String pwd;
 
-	private boolean isMan;
+	private Boolean isMan;
 	private String email;
 
 	private String tel;

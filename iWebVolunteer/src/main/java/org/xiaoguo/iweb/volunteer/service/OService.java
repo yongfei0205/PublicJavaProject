@@ -83,10 +83,11 @@ public class OService {
 		while (keys.hasNext()) {
 			String key = keys.next().toString();
 			try {
+				Object value=jo.get(key);
 				Method method = u.getClass().getMethod(
 						"set" + key.substring(0, 1).toUpperCase()
-								+ key.substring(1));
-				method.invoke(u, jo.get(key));
+								+ key.substring(1),value.getClass());
+				method.invoke(u, value);
 			} catch (NoSuchMethodException e) {
 				e.printStackTrace();
 			} catch (SecurityException e) {
