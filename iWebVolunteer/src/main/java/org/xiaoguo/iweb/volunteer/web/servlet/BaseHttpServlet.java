@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONObject;
+import net.sf.json.JSONObject;
+
+import org.xiaoguo.iweb.volunteer.contants.GlobalContants;
 import org.xiaoguo.iweb.volunteer.service.OService;
 
 public abstract class BaseHttpServlet extends HttpServlet {
@@ -28,12 +30,25 @@ public abstract class BaseHttpServlet extends HttpServlet {
 		req.getInputStream();
 		Enumeration<String> parameterNames = req.getParameterNames();
 		JSONObject param = new JSONObject();
-		while (parameterNames.hasMoreElements()) {
-			String name = parameterNames.nextElement();
-			String value = req.getParameter(name);
-			param.put(name, value);
+		if (req.getMethod().toLowerCase().equals("get")) {
+			while (parameterNames.hasMoreElements()) {
+				String name = parameterNames.nextElement();
+				String value = req.getParameter(name);
+				param.put(name, value);
+			}
+		} else {
+			// param=new JSONObject(req.getInputStream().re);
 		}
-		JSONObject result = doService(req.getSession(), param);
+		JSONObject result = new JSONObject();
+		;
+		if (hasLogin() && !isLogin(req.getSession())) {
+
+			result.put(GlobalContants.key_state_code,
+					GlobalContants.STATE_CODE_not_login);
+			;
+		} else {
+			result = doService(req.getSession(), param, result);
+		}
 		resp.setCharacterEncoding("UTF-8");
 		PrintWriter out = resp.getWriter();
 		out.write(result.toString());
@@ -42,5 +57,18 @@ public abstract class BaseHttpServlet extends HttpServlet {
 	}
 
 	protected abstract JSONObject doService(HttpSession session,
-			JSONObject param);
+			JSONObject param, JSONObject result);
+
+	/**
+	 * 需要登录
+	 * 
+	 * @return
+	 */
+	protected boolean hasLogin() {
+		return false;
+	}
+
+	protected boolean isLogin(HttpSession session) {
+		return (session != null && session.getAttribute("login") != null);
+	}
 }

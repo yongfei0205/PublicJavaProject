@@ -5,7 +5,6 @@ import javax.annotation.PostConstruct;
 import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.webapp.WebAppContext;
 import org.springframework.stereotype.Service;
 import org.xiaoguo.iweb.volunteer.web.servlet.ListUserServlet;
 import org.xiaoguo.iweb.volunteer.web.servlet.LoginServlet;
@@ -14,8 +13,6 @@ import org.xiaoguo.iweb.volunteer.web.servlet.LoginServlet;
 public class WebServer {
 	private static Logger logger = Logger.getLogger(WebServer.class);
 	private Server server;
-
-	private WebAppContext context;
 
 	@PostConstruct
 	private void init() {
@@ -26,6 +23,8 @@ public class WebServer {
 		server.setHandler(context);
 		context.addServlet(LoginServlet.class, "/login");
 		context.addServlet(ListUserServlet.class, "/userList");
+		//context.addVirtualHosts(new String[]{"iweb.xiaoguo822.com"});
+		//context.addFilter(filterClass, pathSpec, dispatches)
 		// server.setHandler(handler);
 		// ResourceHandler resource_handler = new ResourceHandler();
 		// resource_handler.setDirectoriesListed(true);
