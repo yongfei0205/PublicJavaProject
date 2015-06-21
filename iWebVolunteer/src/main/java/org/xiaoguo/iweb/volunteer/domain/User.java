@@ -20,6 +20,7 @@ public class User implements Serializable {
 	private String pwd;
 
 	private int sex;
+	
 	private String email;
 
 	private String tel;

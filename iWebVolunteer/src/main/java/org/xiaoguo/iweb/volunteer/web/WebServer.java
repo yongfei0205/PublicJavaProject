@@ -3,11 +3,16 @@ package org.xiaoguo.iweb.volunteer.web;
 import javax.annotation.PostConstruct;
 
 import org.apache.log4j.Logger;
+import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.webapp.WebAppContext;
 import org.springframework.stereotype.Service;
 import org.xiaoguo.iweb.volunteer.web.servlet.ListUserServlet;
 import org.xiaoguo.iweb.volunteer.web.servlet.LoginServlet;
+import org.xiaoguo.iweb.volunteer.web.servlet.MyInfoServlet;
+
 
 @Service
 public class WebServer {
@@ -19,10 +24,15 @@ public class WebServer {
 		server = new Server(8880);
 		ServletContextHandler context = new ServletContextHandler(
 				ServletContextHandler.SESSIONS);
-		context.setContextPath("/");
-		server.setHandler(context);
+		context.setContextPath("/app");
 		context.addServlet(LoginServlet.class, "/login");
 		context.addServlet(ListUserServlet.class, "/userList");
+		context.addServlet(MyInfoServlet.class, "/myinfo");
+		server.setHandler(context);
+		WebAppContext web=new WebAppContext("webRoot", "/");
+		HandlerList handlers = new HandlerList();
+		handlers.setHandlers(new Handler[]{context,web});
+		server.setHandler(handlers);
 		//context.addVirtualHosts(new String[]{"iweb.xiaoguo822.com"});
 		//context.addFilter(filterClass, pathSpec, dispatches)
 		// server.setHandler(handler);

@@ -1,10 +1,13 @@
 package org.xiaoguo.iweb.volunteer.web.servlet;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Enumeration;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +28,13 @@ public abstract class BaseHttpServlet extends HttpServlet {
 	private static final long serialVersionUID = 3022392638692006721L;
 
 	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		this.doGet(req, resp);
+	}
+
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		req.getInputStream();
@@ -37,7 +47,14 @@ public abstract class BaseHttpServlet extends HttpServlet {
 				param.put(name, value);
 			}
 		} else {
-			// param=new JSONObject(req.getInputStream().re);
+			BufferedReader br = new BufferedReader(new InputStreamReader(
+					(ServletInputStream) req.getInputStream()));
+			String line = null;
+			StringBuilder sb = new StringBuilder();
+			while ((line = br.readLine()) != null) {
+				sb.append(line);
+			}
+			param=JSONObject.fromObject(sb.toString());
 		}
 		JSONObject result = new JSONObject();
 		;
