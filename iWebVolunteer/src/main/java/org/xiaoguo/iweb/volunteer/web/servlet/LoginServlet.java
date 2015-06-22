@@ -30,8 +30,17 @@ public class LoginServlet extends BaseHttpServlet {
 		if (name != null && password != null) {
 			User user = oservice.getUserByName(name);
 			if (user == null) {
-				result.put(GlobalContants.key_state_code,
-						GlobalContants.state_code_not_user);
+				user = oservice.loginByTel(name, password);
+				if (user != null) {
+					session.setAttribute("login", user.getName());
+					session.setAttribute("loginTime",
+							System.currentTimeMillis());
+					result.put(GlobalContants.key_state_code,
+							GlobalContants.STATE_CODE_OK);
+				} else {
+					result.put(GlobalContants.key_state_code,
+							GlobalContants.state_code_not_user);
+				}
 			} else if (user.getPwd().equals(password)) {
 				session.setAttribute("login", name);
 				session.setAttribute("loginTime", System.currentTimeMillis());
@@ -48,5 +57,4 @@ public class LoginServlet extends BaseHttpServlet {
 		}
 		return result;
 	}
-
 }

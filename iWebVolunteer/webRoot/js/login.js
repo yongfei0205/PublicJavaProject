@@ -5,7 +5,7 @@ $(document).ready(function(e) {
 	   var password=$("input[name='password']").val();
 	   var data={'name':username,'password':password}
 	   $.ajax({
-		   url:"http://127.0.0.1:8880/app/login",
+		   url:"app/login",
 		   dataType: "json",
 		   type: "post",
 		   data:JSON.stringify(data),		  

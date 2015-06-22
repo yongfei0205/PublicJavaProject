@@ -27,4 +27,6 @@ public interface MongoDao {
 
 	public List<User> getUsersByPermission(int permission);
 
+	public User getUserByTel(String tel, String password);
+
 }

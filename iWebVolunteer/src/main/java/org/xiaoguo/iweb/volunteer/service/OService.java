@@ -47,8 +47,13 @@ public class OService {
 	}
 
 	public boolean login(String name, String password) {
-		User user = dao.getUser(name, password);
+		User user = dao.getUser(name, password);		
 		return user == null ? false : true;
+	}
+	
+	public User loginByTel(String tel,String password){
+		User user = dao.getUserByTel(tel, password);		
+		return user;
 	}
 
 	public User getUserByName(String name) {

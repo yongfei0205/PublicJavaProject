@@ -1,0 +1,42 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="width=device-width,initial-scale=1" name="viewport" />
+<title>login</title >
+<script language="javascript" type="text/livescript" src="js/jquery-2.1.4.js"></script>
+<script type="text/javascript" >
+	$(document).ready(function(e) {
+        $.getJSON("app/myinfo","",function(data){
+			if(data.stateCode!=undefined){
+				if(data.stateCode==201){
+					document.location.href="/login.html";
+				}
+			}
+			else{
+				$(".mine").html(data.name);
+			}
+		});
+			
+    });
+</script>
+<link rel="stylesheet" type="text/css" href ="css/login.css" />
+<style>
+	header div{
+		float:right;
+	}
+	.mine{
+		color:#C36;}
+</style>
+</head>
+<body>
+	<header>
+    <div>
+		<span>欢迎</span><span class="mine">111</span>
+        </div>
+	</header>
+	<section>
+		
+	</section>
+	<footer></footer>
+</body>
+</html>

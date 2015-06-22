@@ -84,7 +84,7 @@
 				data[sct.name]=Number.parseInt(sct.value);
 			}
 			$.ajax({
-				url:'http://127.0.0.1:8880/app/update',
+				url:'app/update',
 				  dataType: "json",
 			   type: "post",
 			   data:JSON.stringify(data),		  
@@ -98,6 +98,7 @@
 			   }		   	  
 			});	
 		});
+		$
 	});
 </script>
 </html>

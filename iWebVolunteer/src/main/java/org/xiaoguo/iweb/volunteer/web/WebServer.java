@@ -13,7 +13,6 @@ import org.xiaoguo.iweb.volunteer.web.servlet.ListUserServlet;
 import org.xiaoguo.iweb.volunteer.web.servlet.LoginServlet;
 import org.xiaoguo.iweb.volunteer.web.servlet.MyInfoServlet;
 
-
 @Service
 public class WebServer {
 	private static Logger logger = Logger.getLogger(WebServer.class);
@@ -29,12 +28,13 @@ public class WebServer {
 		context.addServlet(ListUserServlet.class, "/userList");
 		context.addServlet(MyInfoServlet.class, "/myinfo");
 		server.setHandler(context);
-		WebAppContext web=new WebAppContext("webRoot", "/");
+		WebAppContext web = new WebAppContext("webRoot", "/");
+		web.setWelcomeFiles(new String[] { "index.html" });
 		HandlerList handlers = new HandlerList();
-		handlers.setHandlers(new Handler[]{context,web});
+		handlers.setHandlers(new Handler[] { context, web });
 		server.setHandler(handlers);
-		//context.addVirtualHosts(new String[]{"iweb.xiaoguo822.com"});
-		//context.addFilter(filterClass, pathSpec, dispatches)
+		// context.addVirtualHosts(new String[]{"iweb.xiaoguo822.com"});
+		// context.addFilter(filterClass, pathSpec, dispatches)
 		// server.setHandler(handler);
 		// ResourceHandler resource_handler = new ResourceHandler();
 		// resource_handler.setDirectoriesListed(true);

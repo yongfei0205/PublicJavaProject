@@ -86,4 +86,12 @@ public class MongoDaoImpl implements MongoDao {
 		query.addCriteria(new Criteria("id").is(id));
 		return mongo.findOne(query, User.class);
 	}
+
+	@Override
+	public User getUserByTel(String tel, String password) {
+		Query query = new Query();
+		query.addCriteria(new Criteria("tel").is(tel));
+		query.addCriteria(new Criteria("pwd").is(password));
+		return mongo.findOne(query, User.class);
+	}
 }
