@@ -12,9 +12,9 @@ import org.xiaoguo.iweb.volunteer.domain.User;
 
 import com.mongodb.WriteResult;
 
-@Component
+//@Component
 public class MongoDaoImpl implements MongoDao {
-	@Autowired
+	//@Autowired
 	private MongoTemplate mongo;
 
 	@Override

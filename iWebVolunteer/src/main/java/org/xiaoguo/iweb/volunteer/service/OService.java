@@ -28,7 +28,7 @@ public class OService {
 		return instance;
 	}
 
-	@Autowired
+	//@Autowired
 	private MongoDao dao;
 
 	@PostConstruct
@@ -43,7 +43,7 @@ public class OService {
 		user.setPwd("xiaoguo822");
 		user.setQq("83575126");
 		user.setTel("15810669623");
-		dao.addUser(user);
+		//dao.addUser(user);
 	}
 
 	public boolean login(String name, String password) {

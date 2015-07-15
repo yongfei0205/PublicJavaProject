@@ -1,20 +1,10 @@
 package org.xiaoguo.iweb.volunteer.web;
 
-import javax.annotation.PostConstruct;
-
-import org.apache.log4j.Logger;
-import org.eclipse.jetty.server.Handler;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.HandlerList;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.webapp.WebAppContext;
 import org.springframework.stereotype.Service;
-import org.xiaoguo.iweb.volunteer.web.servlet.ListUserServlet;
-import org.xiaoguo.iweb.volunteer.web.servlet.LoginServlet;
-import org.xiaoguo.iweb.volunteer.web.servlet.MyInfoServlet;
 
 @Service
 public class WebServer {
+	/**
 	private static Logger logger = Logger.getLogger(WebServer.class);
 	private Server server;
 
@@ -53,5 +43,5 @@ public class WebServer {
 
 		logger.info("WebServer is Started");
 	}
-
+*/
 }
