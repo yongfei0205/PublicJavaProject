@@ -35,7 +35,8 @@ dependencies {
 		'commons-collections:commons-collections:3.2.1'	,
 		'commons-beanutils:commons-beanutils:1.9.2',
 		'org.springframework.boot:spring-boot-starter-thymeleaf:1.2.5.RELEASE',
-		'org.springframework.boot:spring-boot-starter-websocket:1.2.5.RELEASE'				
+		'org.springframework.boot:spring-boot-starter-websocket:1.2.5.RELEASE',
+		'com.google.guava:guava:18.0'				
     )  
     testCompile (
     	'junit:junit:4.12',

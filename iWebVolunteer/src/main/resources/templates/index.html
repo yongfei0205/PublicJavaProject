@@ -13,11 +13,22 @@
 <body>
 	<header>
     <div>
-		 <p th:text="'Hello, ' + ${name} + '!'" />
+		 <p th:text="'Hello, ' + ${user.name} + '!'" />
         </div>
 	</header>
 	<section>
-		
+		 <div th:each="p : ${permissions}">  
+		 	<p th:text="${Permission.getValue(p).name}" />
+			 <div th:each="user : ${users}">  
+			 	<div th:if="${user.permission==p}">			 	
+			 		<span th:text="${user.name}"></span>
+			 		<div >
+			 		<a td:herf="${user.tel}" td:value="${user.tel}"></a>
+			 		</div>
+			 	</div>
+			 	
+			 </div>
+		 </div>
 	</section>
 	<footer></footer>
 </body>

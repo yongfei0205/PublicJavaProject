@@ -3,18 +3,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta content="width=device-width,initial-scale=1" name="viewport" />
 <title>login</title >
-<script language="javascript" type="text/livescript" src="js/jquery-2.1.4.js"></script>
-<script type="text/javascript" src="js/login.js"></script>
-<link rel="stylesheet" type="text/css" href="css/login.css" />
+<script language="javascript" type="text/livescript" src="/js/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="/js/login.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/login.css" />
+<script type="text/javascript" src="/js/jquery.mobile-1.4.5.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/jquery.mobile-1.4.5.css" />
 </head>
 <body>
 	<header>
+	  <p th:text="${errorMsg}" />
 		<span class="vertical">登录</span>
 	</header>
 	<section>
 		<form action="/user/login" method="post">
-			<lable></lable><input type="text" name="username" /><br/>
-			<lable></lable><input type="password" name="password" /><br/>
+			<lable for="username" class="ui-hidden-accessible">Username</lable>
+			<input type="text" name="username" id="username" placeholder="Input UserName or Tel"/><br/>
+			<lable for="password" class="ui-hidden-accessible">Password</lable>
+			<input type="password" name="password" id="password" placeholder="Input Password"/><br/>
 			<input type="submit" value="Login" />
 		</form>
 	</section>

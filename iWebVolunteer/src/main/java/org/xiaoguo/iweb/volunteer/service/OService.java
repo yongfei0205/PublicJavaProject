@@ -17,8 +17,6 @@ import org.xiaoguo.iweb.volunteer.dao.MongoDao;
 import org.xiaoguo.iweb.volunteer.domain.Permission;
 import org.xiaoguo.iweb.volunteer.domain.User;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 @Service
 public class OService {
 
@@ -28,21 +26,15 @@ public class OService {
 		return instance;
 	}
 
-	//@Autowired
+	@Autowired
 	private MongoDao dao;
 
 	@PostConstruct
 	private void init() {
 		instance = this;
-		User user = new User();
-		user.setCo("掌趣科技");
-		user.setName("郭健");
-		user.setSex(1);
-		user.setEmail("i@xiaoguo822.com");
-		user.setJobPost("码农");
-		user.setPwd("xiaoguo822");
-		user.setQq("83575126");
-		user.setTel("15810669623");
+		User user = dao.getUser("郭健");
+		user.setPermission(9);
+		dao.update(user);
 		//dao.addUser(user);
 	}
 
@@ -58,6 +50,10 @@ public class OService {
 
 	public User getUserByName(String name) {
 		return dao.getUser(name);
+	}
+	
+	public User getUserById(String id) {
+		return dao.getUserById(id);
 	}
 
 	public List<User> getUserListByName(String name) {
@@ -124,4 +120,6 @@ public class OService {
 		}
 		return u;
 	}
+
+	
 }

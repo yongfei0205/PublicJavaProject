@@ -1,5 +1,11 @@
 package org.xiaoguo.iweb.volunteer.domain;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.thymeleaf.expression.Lists;
+
 public enum Permission {
 	
 	root(9,"管理员"),
@@ -20,5 +26,9 @@ public enum Permission {
 
 	public String getName() {
 		return name;
+	}
+	
+	public Permission getValue(int id){		
+		return Arrays.asList(values()).stream().filter(p->p.id==id).findFirst().get();
 	}
 }

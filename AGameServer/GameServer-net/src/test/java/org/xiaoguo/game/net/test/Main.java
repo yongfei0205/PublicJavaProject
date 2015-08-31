@@ -12,12 +12,12 @@ public class Main {
 	public static void main(String[] args) {
 		Socket socket = null;
 		try {
-			socket = new Socket("127.0.0.1", 8888);
+			socket = new Socket("127.0.0.1", 9100);
 			 //��ȡ������������    
             DataInputStream input = new DataInputStream(socket.getInputStream());    
             //��������˷�������    
             DataOutputStream out = new DataOutputStream(socket.getOutputStream());  
-            out.writeShort(NetConstants.MAGIC_HEADER);
+            //out.writeShort(NetConstants.MAGIC_HEADER);
             out.writeInt(8);
             out.writeInt(1);
             out.writeInt(99);
@@ -27,7 +27,7 @@ public class Main {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-            out.writeShort(NetConstants.MAGIC_HEADER);
+           // out.writeShort(NetConstants.MAGIC_HEADER);
             out.writeInt(8);
             out.writeInt(2);
             out.writeInt(99);
