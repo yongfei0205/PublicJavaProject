@@ -1,0 +1,21 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+ // java编译的时候缺省状态下会因为中文字符而失败
+[compileJava,compileTestJava,javadoc]*.options*.encoding = 'UTF-8'
+compileJava.options.encoding = 'UTF-8'
+eclipse{
+		project{
+			//natures 'org.scala-ide.sdt.core.scalanature'
+		}
+	}
+ repositories {
+		maven {
+    		url "http://www.xiaoguo822.com:8081/nexus/content/repositories/central/"
+   		}  
+   }
+dependencies {
+	compile(
+		'org.apache.spark:spark-core_2.10:1.4.1'
+	)	
+	compile fileTree(dir: 'D:/DevTools/java/jdk/1.8.0_51/lib/', include: 'tools.jar')
+}
